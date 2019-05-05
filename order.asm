@@ -10,7 +10,7 @@ TITLE2 DB 'ORIGIN:','$'
 TITLE3 DB 13,10,'AFTER:','$'  
 TITLE4 DB 13,10,'$'       
 TITLE5 DB 13,10,'PROCESS:','$'
-ARY DW  1,22,31,4,5,6,78,9,52,4
+ARY DW  1,22,31,4,5,6,78,9,52,3,2,23,54,32,42,55,66,44,33,82
 CRLF    DB  0DH, 0AH, 24H
 N   DW  0
 S1  ENDS  
@@ -44,16 +44,15 @@ P   PROC    FAR
     MOV DI, SI
     ADD DI, 2
 
-    MOV CL, 9
-    MOV CH, 9   
+    MOV CL, 20
+    MOV CH, 20   
     
     DISPMESSAGE TITLE2
     CALL    PRINT        
-    ;DISPMESSAGE TITLE5 
 
-CMPA:;比较大小   
+CMPA:;±È½Ï´óÐ¡   
     MOV BX, [DI]
-    CMP BX, [DI-2]  ;BX大，进入CON
+    CMP BX, [DI-2]  ;BX´ó£¬½øÈëCON
     JA  CON
     MOV DX, [DI-2]
     PUSH    DX
@@ -61,14 +60,12 @@ CMPA:;比较大小
     POP DX
     MOV [DI], DX   
 
-CON: ;交换顺序       
+CON: ;½»»»Ë³Ðò       
     ADD DI, 2
     DEC CH       
     CMP CH, 0
     JNE CMPA
 
-   ; DISPMESSAGE TITLE4
-   ; CALL    PRINT 
     MOV DI, SI
     ADD DI, 2
     DEC CL
@@ -82,7 +79,7 @@ CON: ;交换顺序
     DISPMESSAGE TITLE0
     DISPMESSAGE TITLE1
 
-    ;以下为十进制输出ARY中的数
+    ;ÒÔÏÂÎªÊ®½øÖÆÊä³öARYÖÐµÄÊý
 
 
     MOV AH, 4CH
@@ -98,7 +95,7 @@ PRINT   PROC    NEAR
     LEA DX, CRLF
 
     LEA SI, ARY
-    MOV CX, 10
+    MOV CX, 20
 L1: MOV AX, [SI]
     MOV N, AX
     CALL OUTPUT
