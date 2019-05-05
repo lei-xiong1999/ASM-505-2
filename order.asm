@@ -6,8 +6,10 @@ S0  ENDS
 S1  SEGMENT    
 TITLE0 DB 13,10,'NO.17041126','$'   
 TITLE1 DB 13,10,'NA.XIONGLEI','$'  
-TITLE2 DB 'ORIGIN:','$'
-TITLE3 DB 13,10,'AFTER:','$'
+TITLE2 DB 'ORIGIN:','$' 
+TITLE3 DB 13,10,'AFTER:','$'  
+TITLE4 DB 13,10,'$'       
+TITLE5 DB 13,10,'PROCESS:','$'
 ARY DW  1,22,31,4,5,6,78,9,52,4
 CRLF    DB  0DH, 0AH, 24H
 N   DW  0
@@ -36,10 +38,8 @@ P   PROC    FAR
 
     LEA SI, ARY
 
-    XOR DX, DX
-    MOV BL, 10
-    MOV CX, 10
-
+    XOR DX, DX    
+    
     LEA SI, ARY
     MOV DI, SI
     ADD DI, 2
@@ -48,29 +48,33 @@ P   PROC    FAR
     MOV CH, 9   
     
     DISPMESSAGE TITLE2
-    CALL    PRINT   
+    CALL    PRINT        
+    ;DISPMESSAGE TITLE5 
 
-CMPA:   
+CMPA:;ÊØîËæÉÂ§ßÂ∞è   
     MOV BX, [DI]
-    CMP BX, [DI-2]
+    CMP BX, [DI-2]  ;BXÂ§ßÔºåËøõÂÖ•CON
     JA  CON
     MOV DX, [DI-2]
     PUSH    DX
     MOV [DI-2], BX
     POP DX
-    MOV [DI], DX
-CON:    
+    MOV [DI], DX   
+
+CON: ;‰∫§Êç¢È°∫Â∫è       
     ADD DI, 2
-    DEC CH
+    DEC CH       
     CMP CH, 0
     JNE CMPA
 
-
+   ; DISPMESSAGE TITLE4
+   ; CALL    PRINT 
     MOV DI, SI
     ADD DI, 2
     DEC CL
     MOV CH, CL
-    CMP CL, 1
+    CMP CL, 1 
+
     JNE CMPA
     
     DISPMESSAGE TITLE3
@@ -78,7 +82,7 @@ CON:
     DISPMESSAGE TITLE0
     DISPMESSAGE TITLE1
 
-    ;“‘œ¬Œ™ ÆΩ¯÷∆ ‰≥ˆARY÷–µƒ ˝
+    ;‰ª•‰∏ã‰∏∫ÂçÅËøõÂà∂ËæìÂá∫ARY‰∏≠ÁöÑÊï∞
 
 
     MOV AH, 4CH
